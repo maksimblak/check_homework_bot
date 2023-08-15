@@ -9,6 +9,7 @@ from model.pydantic.test_rejected_files import TestRejectedFiles
 from model.queue_db.queue_out import QueueOut
 
 
+# Функция для получения номера лабораторной (домашней) работы из имени файла
 def _get_lab_number(name: str) -> int:
     name = name.replace("-", "_")
     value = name.split("_")[-1]
@@ -16,6 +17,7 @@ def _get_lab_number(name: str) -> int:
     return int(value)
 
 
+# Класс для обработки ответов и отправки результатов студентам
 class AnswerProcessing:
     """
     Класс опроса промежуточной БД и отправки результатов студенту

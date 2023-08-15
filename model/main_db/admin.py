@@ -1,13 +1,16 @@
-from sqlalchemy.orm import mapped_column, Mapped
-
+from sqlalchemy import Column, Integer, Boolean
 from database.main_db.database import Base
 
-
 class Admin(Base):
+    # Определение имени таблицы в базе данных, соответствующей этой модели.
     __tablename__ = 'admin'
 
-    telegram_id: Mapped[int] = mapped_column(primary_key=True)
-    teacher_mode: Mapped[bool] = mapped_column(default=False)
+    # Определение колонки 'telegram_id' с типом данных Integer, которая будет использоваться как первичный ключ.
+    telegram_id = Column('telegram_id', Integer, primary_key=True)
 
+    # Определение колонки 'teacher_mode' с типом данных Boolean и значением по умолчанию False.
+    teacher_mode = Column('teacher_mode', Boolean, default=False)
+
+    # Метод __repr__ определяет строковое представление объекта Admin для отладки и вывода.
     def __repr__(self):
         return f'Admin [ID: {self.telegram_id}]'

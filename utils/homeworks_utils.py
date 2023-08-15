@@ -1,7 +1,7 @@
-import json  # Импорт модуля json для работы с JSON-данными.
-from pydantic.json import pydantic_encoder  # Импорт кодировщика pydantic_encoder из модуля pydantic.json.
-from model.pydantic.discipline_works import DisciplineWorksConfig  # Импорт класса DisciplineWorksConfig.
-from model.pydantic.home_work import DisciplineHomeWorks, HomeWork, HomeTask  # Импорт классов для домашних заданий.
+import json
+from pydantic.json import pydantic_encoder
+from model.pydantic.discipline_works import DisciplineWorksConfig
+from model.pydantic.home_work import DisciplineHomeWorks, HomeWork, HomeTask  #
 
 
 # Функция для создания домашних заданий на основе конфигурации дисциплины.
@@ -15,13 +15,13 @@ def create_homeworks(discipline: DisciplineWorksConfig) -> DisciplineHomeWorks:
     return DisciplineHomeWorks(home_works=home_works_list)  # Возвращение объекта с домашними работами.
 
 
+# Функция для создания объекта DisciplineHomeWorks из JSON-данных.
 def homeworks_from_json(json_data: str) -> DisciplineHomeWorks:
-    # Функция для создания объекта DisciplineHomeWorks из JSON-данных.
     data = json.loads(json_data)  # Разбор JSON-данных.
     return DisciplineHomeWorks(**data)  # Создание объекта DisciplineHomeWorks с использованием разобранных данных.
 
 
+# Функция для преобразования объекта DisciplineHomeWorks в формат JSON с использованием pydantic_encoder.
 def homeworks_to_json(data: DisciplineHomeWorks) -> str:
-    # Функция для преобразования объекта DisciplineHomeWorks в формат JSON с использованием pydantic_encoder.
     return json.dumps(data, sort_keys=False, indent=4, ensure_ascii=False, separators=(',', ':'),
                       default=pydantic_encoder)

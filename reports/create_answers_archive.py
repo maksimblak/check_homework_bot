@@ -15,9 +15,11 @@ def create_answers_archive(path_to_group_folder: Path) -> Path:
     path = Path(Path.cwd().joinpath(os.getenv("TEMP_REPORT_DIR")))
     file_name = f'data_{datetime.now().date()}'
 
+    # Создание архива
     shutil.make_archive(
         str(path.joinpath(f'{file_name}')),
         'zip', path_to_group_folder
     )
 
+    # Возвращение пути до сформированного архива
     return path.joinpath(f'{file_name}.zip')

@@ -1,17 +1,17 @@
-import json  # Импорт модуля json для работы с JSON-данными.
-from pydantic.json import pydantic_encoder  # Импорт кодировщика pydantic_encoder из модуля pydantic.json.
-from model.pydantic.discipline_works import DisciplinesConfig, DisciplineWorksConfig  # Импорт необходимых классов.
+import json
+from pydantic.json import pydantic_encoder
+from model.pydantic.discipline_works import DisciplinesConfig, DisciplineWorksConfig
 
 
-def load_disciplines_config(
-        file_path: str) -> DisciplinesConfig:  # Функция для загрузки конфигураций дисциплин из JSON-файла и создания объекта DisciplinesConfig.
-    with open(file_path, encoding='utf-8') as json_file:  # Открытие  json файла
-        data = json.load(json_file)  # Загрузка JSON-данных из файла.
-        return DisciplinesConfig(**data)  # Создание объекта DisciplinesConfig с использованием загруженных данных.
+# Загружает конфигурации дисциплин из JSON-файла, и создает объект DisciplinesConfig.
+def load_disciplines_config(file_path: str) -> DisciplinesConfig:
+    with open(file_path, encoding='utf-8') as json_file:
+        data = json.load(json_file)
+        return DisciplinesConfig(**data)
 
 
-def disciplines_config_to_json(
-        data: DisciplinesConfig) -> str:  # Функция для преобразования объекта DisciplinesConfig в формат JSON с использованием pydantic_encoder.
+# Преобразует объект DisciplinesConfig в формат JSON с использованием pydantic_encoder.
+def disciplines_config_to_json(data: DisciplinesConfig) -> str:
     return json.dumps(
         data,
         sort_keys=False,
@@ -22,14 +22,14 @@ def disciplines_config_to_json(
     )
 
 
-def disciplines_config_from_json(
-        json_data: str) -> DisciplinesConfig:  # Функция для создания объекта DisciplinesConfig из JSON-данных.
-    data = json.loads(json_data)  # Разбор JSON-данных.
-    return DisciplinesConfig(**data)  # Создание объекта DisciplinesConfig с использованием разобранных данных.
+# Создает объект DisciplinesConfig из JSON-данных.
+def disciplines_config_from_json(json_data: str) -> DisciplinesConfig:
+    data = json.loads(json_data)
+    return DisciplinesConfig(**data)
 
 
-def disciplines_works_to_json(
-        data: DisciplineWorksConfig) -> str:  # Функция для преобразования объекта DisciplineWorksConfig в формат JSON с использованием pydantic_encoder.
+# Преобразует объект DisciplineWorksConfig в формат JSON с использованием pydantic_encoder.
+def disciplines_works_to_json(data: DisciplineWorksConfig) -> str:
     return json.dumps(
         data,
         sort_keys=False,
@@ -40,21 +40,21 @@ def disciplines_works_to_json(
     )
 
 
-# Функция для загрузки данных дисциплины из байтов и создания объекта DisciplineWorksConfig.
+# Загружает данные дисциплины из байтов и создает объект DisciplineWorksConfig.
 def load_discipline(downloaded_data: bytes) -> DisciplineWorksConfig:
-    data = json.loads(downloaded_data)  # Разбор JSON-данных из байтов.
-    return DisciplineWorksConfig(**data)  # Создание объекта DisciplineWorksConfig с использованием разобранных данных.
+    data = json.loads(downloaded_data)
+    return DisciplineWorksConfig(**data)
 
 
-# Функция для создания объекта DisciplineWorksConfig из JSON-данных.
+# Создает объект DisciplineWorksConfig из JSON-данных.
 def disciplines_works_from_json(json_data: str) -> DisciplineWorksConfig:
-    data = json.loads(json_data)  # Разбор JSON-данных.
-    return DisciplineWorksConfig(**data)  # Создание объекта DisciplineWorksConfig с использованием разобранных данных.
+    data = json.loads(json_data)
+    return DisciplineWorksConfig(**data)
 
 
-# Функция для подсчета общего количества задач в рамках дисциплины.
+# Подсчитывает общее количество задач в рамках дисциплины.
 def counting_tasks(discipline: DisciplineWorksConfig) -> int:
     result = 0
-    for it in discipline.works:  # Проход по списку работ в дисциплине.
-        result += it.amount_tasks  # Увеличение общего количества задач.
-    return result  # Возвращение общего количества задач.
+    for it in discipline.works:
+        result += it.amount_tasks
+    return result

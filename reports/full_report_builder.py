@@ -6,6 +6,10 @@ from reports.base_report_builder import BaseReportBuilder, ReportFieldEnum
 
 
 class FullReportBuilder(BaseReportBuilder):
+    """
+      Класс для создания полного отчета о дисциплине.
+      Наследует функциональность из BaseReportBuilder.
+      """
 
     def __init__(self, group_id: int, discipline_id: int):
         super().__init__(group_id, discipline_id, 'full_report')
@@ -19,6 +23,7 @@ class FullReportBuilder(BaseReportBuilder):
         for student in students:
             answers = common_crud.get_student_discipline_answer(student.id, self.discipline_id)
             home_works = DisciplineHomeWorks(**json.loads(answers.home_work)).home_works
+            # Заполнение заголовков задач по лабораторным работам.
             if row == 1:
                 col = ReportFieldEnum.NEXT
                 for number_lab, work in enumerate(home_works):
@@ -29,6 +34,7 @@ class FullReportBuilder(BaseReportBuilder):
                         col += 1
 
                 row += 1
+            # Заполнение данных по выполнению задач студентами.
             if row > 1:
                 col = ReportFieldEnum.NEXT
                 for number_lab, work in enumerate(home_works):

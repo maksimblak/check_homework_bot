@@ -11,6 +11,7 @@ class DockerBuilder:
     """
     Класс формирования Dockerfile
     """
+
     def __init__(self, path_to_folder: Path, student_id: int, lab_number: int) -> None:
         """
         :param path_to_folder: путь до директории с файлами, которые будут отправлены в контейнер
@@ -26,6 +27,7 @@ class DockerBuilder:
         self.logs: str | None = None
 
     def _build_docker_file(self):
+        # Формирование Dockerfile в соответствии с заданными зависимостями
         file = [
             "FROM python:3.11\n",
             "WORKDIR /opt/\n"
@@ -41,6 +43,7 @@ class DockerBuilder:
         file.append('RUN ["pytest", "--tb=no"]\n')
         file.append('CMD ["python3", "docker_output.py"]\n')
 
+        # Запись сформированного Dockerfile в файл
         f = open(self.test_dir.joinpath('Dockerfile'), "w")
         f.writelines(file)
         f.close()
@@ -49,6 +52,7 @@ class DockerBuilder:
         return self.logs
 
     def run_docker(self):
+        # Формирование и запуск Docker-контейнера
         self._build_docker_file()
 
         with docker.build(context_path=self.test_dir, tags=self.tag_name) as my_image:

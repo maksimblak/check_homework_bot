@@ -6,6 +6,10 @@
 
 from logger.docker_logger import DockerLogger
 
+# Создаем экземпляр класса DockerLogger и сохраняем его в переменную logger
 logger = DockerLogger()
 
+# Вызываем метод to_json() на экземпляре логгера.
+# Этот метод, вероятно, возвращает JSON-представление данных логгера.
+# Затем это JSON-представление будет распечатано на экран.
 print(logger.to_json())
